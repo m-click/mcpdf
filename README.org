@@ -9,27 +9,26 @@ with a PDFtk compatible syntax.
 
 ** Getting Started
 
-Make sure you have installed a
-Java Runtime Environment such as [[http://openjdk.java.net/][OpenJDK]].
+1. Make sure you have installed a
+   Java Runtime Environment such as [[http://openjdk.java.net/][OpenJDK]].
 
-Download the latest standalone version
-of Mcpdf
-(jar-with-dependencies).
+2. Download the latest standalone version
+   of Mcpdf (jar-with-dependencies).
 
-Test it via:
+3. For the sake of brevity,
+   we'll refer to this file as =mcpdf.jar=.
+   So you should either rename the file
+   or create a symlink:
 
-#+BEGIN_SRC sh
-java -jar mcpdf-X.Y.Z-jar-with-dependencies.jar
-#+END_SRC
+   #+BEGIN_SRC sh
+   ln -s mcpdf-X.Y.Z-jar-with-dependencies.jar mcpdf.jar
+   #+END_SRC
 
-For the sake of brevity,
-we'll refer to this file as =mcpdf.jar=.
-So you should either rename the file
-or create a symlink:
+4. Test it via:
 
-#+BEGIN_SRC sh
-ln -s mcpdf-X.Y.Z-jar-with-dependencies.jar mcpdf.jar
-#+END_SRC
+   #+BEGIN_SRC sh
+   java -jar mcpdf.jar
+   #+END_SRC
 
 ** Usage
 
@@ -63,43 +62,43 @@ if you see something missing.
 
 *** Combine with Another Library Version
 
-Download the plain JAR file
-(mcpdf-X.Y.Z.jar)
-instead of the jar-with-dependencies.
+1. Download the plain JAR file
+   (mcpdf-X.Y.Z.jar)
+   instead of the jar-with-dependencies.
 
-Download the version of the iText PDF library
-you want to use (textpdf-X.Y.Z.jar).
+2. Download the version of the iText PDF library
+   you want to use (textpdf-X.Y.Z.jar).
 
-Run both in combination:
+3. Run both in combination:
 
-#+BEGIN_SRC sh
-java -cp itextpdf-X.Y.Z.jar:mcpdf-X.Y.Z.jar aero.m_click.mcpdf.Main
-#+END_SRC
+   #+BEGIN_SRC sh
+   java -cp itextpdf-X.Y.Z.jar:mcpdf-X.Y.Z.jar aero.m_click.mcpdf.Main
+   #+END_SRC
 
 *** Build from Source
 
-Make sure you have installed [[https://maven.apache.org/][Maven]] and [[http://git-scm.com/][Git]].
+1. Make sure you have installed [[https://maven.apache.org/][Maven]] and [[http://git-scm.com/][Git]].
 
-Download the latest Mcpdf source
-and change into that folder:
+2. Download the latest Mcpdf source
+   and change into that folder:
 
-#+BEGIN_SRC sh
-git clone https://github.com/m-click/mcpdf.git
-cd mcpdf
-#+END_SRC
+   #+BEGIN_SRC sh
+   git clone https://github.com/m-click/mcpdf.git
+   cd mcpdf
+   #+END_SRC
 
-Build the plain JAR file
-as well as the jar-with-dependencies:
+3. Build the plain JAR file
+   as well as the jar-with-dependencies:
 
-#+BEGIN_SRC sh
-mvn package
-#+END_SRC
+   #+BEGIN_SRC sh
+   mvn package
+   #+END_SRC
 
-This will download
-the correct version of the iText PDF library
-and all required Maven modules automatically.
+   This will download
+   the correct version of the iText PDF library
+   and all required Maven modules automatically.
 
-You'll find the JAR files in the =target= subfolder.
+4. You'll find the JAR files in the =target= subfolder.
 
 *** Deploy Releases
 
@@ -107,38 +106,38 @@ Mcpdf uses the [[https://docs.sonatype.org/display/Repository/Sonatype%2BOSS%2BM
 (OSS Repository Hosting Service).
 The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759][OSSRH-8759]].
 
-Create =~/.m2/settings.xml=:
+1. Create =~/.m2/settings.xml=:
 
-#+BEGIN_SRC xml
-<settings>
-  <servers>
-    <server>
-      <id>sonatype-nexus-snapshots</id>
-      <username>...</username>
-      <password>...</password>
-    </server>
-    <server>
-      <id>sonatype-nexus-staging</id>
-      <username>...</username>
-      <password>...</password>
-    </server>
-  </servers>
-</settings>
-#+END_SRC
+   #+BEGIN_SRC xml
+   <settings>
+     <servers>
+       <server>
+         <id>sonatype-nexus-snapshots</id>
+         <username>...</username>
+         <password>...</password>
+       </server>
+       <server>
+         <id>sonatype-nexus-staging</id>
+         <username>...</username>
+         <password>...</password>
+       </server>
+     </servers>
+   </settings>
+   #+END_SRC
 
-Create a new release
-and upload it to the OSSRH staging area:
+2. Create a new release
+   and upload it to the OSSRH staging area:
 
-#+BEGIN_SRC sh
-mvn release:clean
-mvn release:prepare
-mvn release:perform
-#+END_SRC
+   #+BEGIN_SRC sh
+   mvn release:clean
+   mvn release:prepare
+   mvn release:perform
+   #+END_SRC
 
-[[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
+3. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
 
-When everything was fine, push to GitHub:
+4. When everything was fine, push to GitHub:
 
-#+BEGIN_SRC sh
-git push
-#+END_SRC
+   #+BEGIN_SRC sh
+   git push
+   #+END_SRC
