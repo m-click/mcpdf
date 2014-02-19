@@ -65,7 +65,7 @@ if you see something missing.
 1. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.1/mcpdf-0.2.1.jar][Download]] the plain JAR file (mcpdf-0.2.1.jar)
    instead of the jar-with-dependencies.
 
-2. [[https://oss.sonatype.org/index.html#nexus-search;gav~com.itextpdf~itextpdf~~~][Download]] the version of the iText PDF library
+2. [[https://search.maven.org/#search|gav|1|g%3A%22com.itextpdf%22%20AND%20a%3A%22itextpdf%22][Download]] the version of the iText PDF library
    you want to use (textpdf-X.Y.Z.jar).
 
 3. Run both in combination:
