@@ -32,6 +32,17 @@ import com.itextpdf.text.pdf.*;
 public class Main
 {
     public static void main(String[] args)
+    {
+        try {
+            parseArgsAndExecute(args);
+        } catch (Exception e) {
+            System.err.println(e);
+            System.err.println("See README for more information.");
+            System.exit(1);
+        }
+    }
+
+    public static void parseArgsAndExecute(String[] args)
         throws IOException, DocumentException
     {
         if (args.length == 0) {
