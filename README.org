@@ -141,7 +141,7 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
    mvn release:perform
    #+END_SRC
 
-4. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
+4. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the OSSRH release instructions]].
 
 5. Push to GitHub:
 
