@@ -21,7 +21,7 @@ with a PDFtk compatible syntax.
    or create a symlink:
 
    #+BEGIN_SRC sh
-   ln -s mcpdf-X.Y.Z-jar-with-dependencies.jar mcpdf.jar
+   ln -s mcpdf-0.2.0-jar-with-dependencies.jar mcpdf.jar
    #+END_SRC
 
 4. Test it via:
@@ -63,7 +63,7 @@ if you see something missing.
 *** Combine with Another Library Version
 
 1. Download the plain JAR file
-   (mcpdf-X.Y.Z.jar)
+   (mcpdf-0.2.0.jar)
    instead of the jar-with-dependencies.
 
 2. Download the version of the iText PDF library
@@ -72,7 +72,7 @@ if you see something missing.
 3. Run both in combination:
 
    #+BEGIN_SRC sh
-   java -cp itextpdf-X.Y.Z.jar:mcpdf-X.Y.Z.jar aero.m_click.mcpdf.Main
+   java -cp itextpdf-X.Y.Z.jar:mcpdf-0.2.0.jar aero.m_click.mcpdf.Main
    #+END_SRC
 
 *** Build from Source
@@ -125,7 +125,15 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
    </settings>
    #+END_SRC
 
-2. Create a new release
+2. Prepare documentation:
+
+   #+BEGIN_SRC sh
+   RELEASE=mcpdf-`sed -n 's/^  <version>\([^-]*\).*/\1/p' pom.xml`
+   sed -i "s/mcpdf-[0-9.]*[0-9]/$RELEASE/" README.org
+   git commit -m "Prepare documentation for release $RELEASE" README.org
+   #+END_SRC
+
+3. Create a new release
    and upload it to the OSSRH staging area:
 
    #+BEGIN_SRC sh
@@ -134,9 +142,9 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
    mvn release:perform
    #+END_SRC
 
-3. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
+4. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
 
-4. When everything was fine, push to GitHub:
+5. Push to GitHub:
 
    #+BEGIN_SRC sh
    git push
