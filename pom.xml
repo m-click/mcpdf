@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <name>mcpdf</name>
   <description>Mcpdf is a drop-in replacement for PDFtk.</description>
-  <url>https://github.com/m-click/mcpdf</url>
+  <url>https://github.com/m-click/mcpdf#readme</url>
   <scm>
     <connection>scm:git:ssh://git@github.com/m-click/mcpdf.git</connection>
     <url>https://github.com/m-click/mcpdf</url>

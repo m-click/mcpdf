@@ -1,0 +1,102 @@
+* Mcpdf
+
+Mcpdf is a drop-in replacement for [[http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/][PDFtk]].
+
+It fixes PDFtk's unicode issues when filling in PDF forms,
+and is essentially a command line interface
+to the [[http://itextpdf.com/product/itext][iText PDF library]]
+with a PDFtk compatible syntax.
+
+** Getting Started
+
+Make sure you have installed a
+Java Runtime Environment such as [[http://openjdk.java.net/][OpenJDK]].
+
+Download the latest standalone version
+of Mcpdf
+(jar-with-dependencies).
+
+Test it via:
+
+#+BEGIN_SRC sh
+java -jar mcpdf-X.Y.Z-jar-with-dependencies.jar
+#+END_SRC
+
+For the sake of brevity,
+we'll refer to this file as =mcpdf.jar=.
+So you should either rename the file
+or create a symlink:
+
+#+BEGIN_SRC sh
+ln -s mcpdf-X.Y.Z-jar-with-dependencies.jar mcpdf.jar
+#+END_SRC
+
+** Usage
+
+Mcpdf is a drop-in replacement for PDFtk.
+Take a working [[http://www.pdflabs.com/docs/pdftk-man-page/][PDFtk command]]
+and replace =pdftk= with =java -jar mcpdf.jar=.
+That's all there is to it.
+
+For example, the following command
+fills in form data from =DATA.xfdf= into =FORM.pdf=
+and writes the result to =RESULT.pdf=.
+It also flattens the document to prevent further editing:
+
+#+BEGIN_SRC sh
+java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
+#+END_SRC
+
+This corresponds exactly to the following PDFtk command:
+
+#+BEGIN_SRC sh
+pdftk FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
+#+END_SRC
+
+Note that not all PDFtk operations
+are implemented at the moment.
+
+[[https://github.com/m-click/mcpdf/issues][Please create an issue tracker entry]]
+if you see something missing.
+
+** Advanced Topics
+
+*** Combine with Another Library Version
+
+Download the plain JAR file
+(mcpdf-X.Y.Z.jar)
+instead of the jar-with-dependencies.
+
+Download the version of the iText PDF library
+you want to use (textpdf-X.Y.Z.jar).
+
+Run both in combination:
+
+#+BEGIN_SRC sh
+java -cp itextpdf-X.Y.Z.jar:mcpdf-X.Y.Z.jar aero.m_click.mcpdf.Main
+#+END_SRC
+
+*** Build from Source
+
+Make sure you have installed [[https://maven.apache.org/][Maven]] and [[http://git-scm.com/][Git]].
+
+Download the latest Mcpdf source
+and change into that folder:
+
+#+BEGIN_SRC sh
+git clone https://github.com/m-click/mcpdf.git
+cd mcpdf
+#+END_SRC
+
+Build the plain JAR file
+as well as the jar-with-dependencies:
+
+#+BEGIN_SRC sh
+mvn package
+#+END_SRC
+
+This will download
+the correct version of the iText PDF library
+and all required Maven modules automatically.
+
+You'll find the JAR files in the =target= subfolder.
