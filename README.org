@@ -100,3 +100,45 @@ the correct version of the iText PDF library
 and all required Maven modules automatically.
 
 You'll find the JAR files in the =target= subfolder.
+
+*** Deploy Releases
+
+Mcpdf uses the [[https://docs.sonatype.org/display/Repository/Sonatype%2BOSS%2BMaven%2BRepository%2BUsage%2BGuide][Sonatype OSSRH]]
+(OSS Repository Hosting Service).
+The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759][OSSRH-8759]].
+
+Create =~/.m2/settings.xml=:
+
+#+BEGIN_SRC xml
+<settings>
+  <servers>
+    <server>
+      <id>sonatype-nexus-snapshots</id>
+      <username>...</username>
+      <password>...</password>
+    </server>
+    <server>
+      <id>sonatype-nexus-staging</id>
+      <username>...</username>
+      <password>...</password>
+    </server>
+  </servers>
+</settings>
+#+END_SRC
+
+Create a new release
+and upload it to the OSSRH staging area:
+
+#+BEGIN_SRC sh
+mvn release:clean
+mvn release:prepare
+mvn release:perform
+#+END_SRC
+
+[[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the release instructions]].
+
+When everything was fine, push to GitHub:
+
+#+BEGIN_SRC sh
+git push
+#+END_SRC
