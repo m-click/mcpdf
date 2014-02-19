@@ -12,7 +12,7 @@ with a PDFtk compatible syntax.
 1. Make sure you have installed a
    Java Runtime Environment such as [[http://openjdk.java.net/][OpenJDK]].
 
-2. Download the latest standalone version
+2. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.0/mcpdf-0.2.0-jar-with-dependencies.jar][Download]] the latest standalone version
    of Mcpdf (jar-with-dependencies).
 
 3. For the sake of brevity,
@@ -62,11 +62,10 @@ if you see something missing.
 
 *** Combine with Another Library Version
 
-1. Download the plain JAR file
-   (mcpdf-0.2.0.jar)
+1. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.0/mcpdf-0.2.0.jar][Download]] the plain JAR file (mcpdf-0.2.0.jar)
    instead of the jar-with-dependencies.
 
-2. Download the version of the iText PDF library
+2. [[https://oss.sonatype.org/index.html#nexus-search;gav~com.itextpdf~itextpdf~~~][Download]] the version of the iText PDF library
    you want to use (textpdf-X.Y.Z.jar).
 
 3. Run both in combination:
@@ -128,9 +127,9 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
 2. Prepare documentation:
 
    #+BEGIN_SRC sh
-   RELEASE=mcpdf-`sed -n 's/^  <version>\([^-]*\).*/\1/p' pom.xml`
-   sed -i "s/mcpdf-[0-9.]*[0-9]/$RELEASE/" README.org
-   git commit -m "Prepare documentation for release $RELEASE" README.org
+   VERSION=`sed -n 's/^  <version>\([^-]*\).*/\1/p' pom.xml`
+   sed -i "s,mcpdf\([-/]\)[0-9.]*[0-9],mcpdf\1$VERSION,g" README.org
+   git commit -m "Prepare documentation for release mcpdf-$VERSION" README.org
    #+END_SRC
 
 3. Create a new release
