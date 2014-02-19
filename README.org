@@ -12,7 +12,7 @@ with a PDFtk compatible syntax.
 1. Make sure you have installed a
    Java Runtime Environment such as [[http://openjdk.java.net/][OpenJDK]].
 
-2. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.0/mcpdf-0.2.0-jar-with-dependencies.jar][Download]] the latest standalone version
+2. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.1/mcpdf-0.2.1-jar-with-dependencies.jar][Download]] the latest standalone version
    of Mcpdf (jar-with-dependencies).
 
 3. For the sake of brevity,
@@ -21,7 +21,7 @@ with a PDFtk compatible syntax.
    or create a symlink:
 
    #+BEGIN_SRC sh
-   ln -s mcpdf-0.2.0-jar-with-dependencies.jar mcpdf.jar
+   ln -s mcpdf-0.2.1-jar-with-dependencies.jar mcpdf.jar
    #+END_SRC
 
 4. Test it via:
@@ -62,7 +62,7 @@ if you see something missing.
 
 *** Combine with Another Library Version
 
-1. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.0/mcpdf-0.2.0.jar][Download]] the plain JAR file (mcpdf-0.2.0.jar)
+1. [[https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.1/mcpdf-0.2.1.jar][Download]] the plain JAR file (mcpdf-0.2.1.jar)
    instead of the jar-with-dependencies.
 
 2. [[https://oss.sonatype.org/index.html#nexus-search;gav~com.itextpdf~itextpdf~~~][Download]] the version of the iText PDF library
@@ -71,7 +71,7 @@ if you see something missing.
 3. Run both in combination:
 
    #+BEGIN_SRC sh
-   java -cp itextpdf-X.Y.Z.jar:mcpdf-0.2.0.jar aero.m_click.mcpdf.Main
+   java -cp itextpdf-X.Y.Z.jar:mcpdf-0.2.1.jar aero.m_click.mcpdf.Main
    #+END_SRC
 
 *** Build from Source
