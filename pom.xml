@@ -15,6 +15,7 @@
   </licenses>
   <scm>
     <connection>scm:git:ssh://git@github.com/m-click/mcpdf.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/m-click/mcpdf.git</developerConnection>
     <url>https://github.com/m-click/mcpdf</url>
   </scm>
   <developers>
@@ -25,6 +26,11 @@
       <organizationUrl>http://m-click.aero</organizationUrl>
     </developer>
   </developers>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
   <build>
     <plugins>
       <plugin>
