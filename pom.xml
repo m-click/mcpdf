@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>aero.m-click</groupId>
   <artifactId>mcpdf</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>mcpdf</name>
   <description>Mcpdf is a drop-in replacement for PDFtk.</description>
