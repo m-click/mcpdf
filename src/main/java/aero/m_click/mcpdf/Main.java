@@ -29,6 +29,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.XfdfReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,7 +39,7 @@ public class Main
     public static void main(String[] args)
     {
         try {
-            parseArgsAndExecute(args);
+            execute(parseArgs(args));
         } catch (Exception e) {
             System.err.println(e);
             System.err.println("See README for more information.");
@@ -46,19 +47,20 @@ public class Main
         }
     }
 
-    public static void parseArgsAndExecute(String[] args)
-        throws IOException, DocumentException
+    public static Config parseArgs(String[] args)
+        throws FileNotFoundException
     {
         if (args.length == 0) {
             throw new RuntimeException("Missing arguments.");
         }
-        InputStream input_pdf = new FileInputStream(args[0]);
-        OutputStream output_pdf = System.out;
-        InputStream fill_form = null;
-        boolean flatten = false;
+        Config config = new Config();
+        config.pdfInputStream = new FileInputStream(args[0]);
+        config.pdfOutputStream = System.out;
+        config.formInputStream = null;
+        config.flatten = false;
         for (int i = 1; i < args.length; i++) {
             if ("fill_form".equals(args[i])) {
-                fill_form = System.in;
+                config.formInputStream = System.in;
                 i++;
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after fill_form operation.");
@@ -69,26 +71,23 @@ public class Main
                     throw new RuntimeException("Missing \"-\" after output operation.");
                 }
             } else if ("flatten".equals(args[i])) {
-                flatten = true;
+                config.flatten = true;
             } else {
                 throw new RuntimeException("Unknown operation: " + args[i]);
             }
         }
-        execute(input_pdf, output_pdf, fill_form, flatten);
+        return config;
     }
 
-    public static void execute(InputStream input_pdf,
-                               OutputStream output_pdf,
-                               InputStream fill_form,
-                               boolean flatten)
+    public static void execute(Config config)
         throws IOException, DocumentException
     {
-        PdfReader reader = new PdfReader(input_pdf);
-        PdfStamper stamper = new PdfStamper(reader, output_pdf, '\0');
-        if (fill_form != null) {
-            stamper.getAcroFields().setFields(new XfdfReader(fill_form));
+        PdfReader reader = new PdfReader(config.pdfInputStream);
+        PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
+        if (config.formInputStream != null) {
+            stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
         }
-        stamper.setFormFlattening(flatten);
+        stamper.setFormFlattening(config.flatten);
         stamper.close();
     }
 }
