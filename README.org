@@ -46,7 +46,7 @@ It also flattens the document to prevent further editing:
 java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
 #+END_SRC
 
-This corresponds exactly to the following PDFtk command:
+This corresponds exactly to the usual PDFtk command:
 
 #+BEGIN_SRC sh
 pdftk FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
