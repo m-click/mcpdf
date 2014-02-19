@@ -24,10 +24,14 @@
 
 package aero.m_click.mcpdf;
 
-import java.io.*;
-import java.util.*;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.XfdfReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class Main
 {
