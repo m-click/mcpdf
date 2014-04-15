@@ -66,7 +66,7 @@ if you see something missing.
    instead of the jar-with-dependencies.
 
 2. [[https://search.maven.org/#search|gav|1|g%3A%22com.itextpdf%22%20AND%20a%3A%22itextpdf%22][Download]] the version of the iText PDF library
-   you want to use (textpdf-X.Y.Z.jar).
+   you want to use (itextpdf-X.Y.Z.jar).
 
 3. Run both in combination:
 
