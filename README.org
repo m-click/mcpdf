@@ -141,7 +141,17 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
    mvn release:perform
    #+END_SRC
 
-4. [[https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8a.ReleaseIt][Follow the OSSRH release instructions]].
+4. [[http://central.sonatype.org/pages/releasing-the-deployment.html][Follow the OSSRH release instructions]], that is:
+
+   - Login to https://oss.sonatype.org/
+
+   - Select =Staging Repositories=
+
+   - Select topmost item
+
+   - Click =Close= and =Confirm=
+
+   - [[https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22][Watch it appear at the Central Repository]]
 
 5. Push to GitHub:
 
