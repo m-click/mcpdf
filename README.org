@@ -136,9 +136,7 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
    and upload it to the OSSRH staging area:
 
    #+BEGIN_SRC sh
-   mvn release:clean
-   mvn release:prepare
-   mvn release:perform
+   mvn release:clean release:prepare release:perform
    #+END_SRC
 
 4. [[http://central.sonatype.org/pages/releasing-the-deployment.html][Follow the OSSRH release instructions]], that is:
