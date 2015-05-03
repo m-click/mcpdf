@@ -143,13 +143,17 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
 
 4. [[http://central.sonatype.org/pages/releasing-the-deployment.html][Follow the OSSRH release instructions]], that is:
 
-   - Login to https://oss.sonatype.org/
+   - Open https://oss.sonatype.org/
+
+   - Login
 
    - Select =Staging Repositories=
 
    - Select topmost item
 
    - Click =Close= and =Confirm=
+
+   - Click =Release= and =Confirm=
 
    - [[https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22][Watch it appear at the Central Repository]]
 
