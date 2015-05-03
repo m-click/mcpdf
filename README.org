@@ -151,6 +151,8 @@ The project creation ticket was [[https://issues.sonatype.org/browse/OSSRH-8759]
 
    - Click =Close= and =Confirm=
 
+   - Click =Refresh= a few times
+
    - Click =Release= and =Confirm=
 
    - [[https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22][Watch it appear at the Central Repository]]
