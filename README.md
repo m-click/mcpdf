@@ -1,9 +1,8 @@
 # Mcpdf
 
-Mcpdf aims to become a drop-in replacement for [PDFtk](http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/).
+Mcpdf aims to become a drop-in replacement for [PDFtk](http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/). It is essentially a command line interface to the [iText PDF library](http://itextpdf.com/product/itext) with a PDFtk compatible syntax.
 
-It fixes PDFtk's unicode issues when filling in PDF forms, and is essentially a command line interface
-to the [iText PDF library](http://itextpdf.com/product/itext) with a PDFtk compatible syntax.
+Mcpdf fixes PDFtk's unicode issues when filling in PDF forms. It enables you to fill in forms with east european special characters, such as the city name Łódź.
 
 ## Getting Started
 
