@@ -72,7 +72,7 @@ public class Main
 		config.isFdf = true;
                 i++;
                 if (!"-".equals(args[i])) {
-                    throw new RuntimeException("Missing \"-\" after fill_form operation.");
+                    throw new RuntimeException("Missing \"-\" after fill_form_fdf operation.");
                 }
             } else if ("output".equals(args[i])) {
                 i++;
