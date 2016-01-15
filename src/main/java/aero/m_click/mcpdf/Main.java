@@ -28,6 +28,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.XfdfReader;
+import com.itextpdf.text.pdf.FdfReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -58,12 +59,20 @@ public class Main
         config.pdfOutputStream = System.out;
         config.formInputStream = null;
         config.flatten = false;
+	config.isFdf = false;
         for (int i = 1; i < args.length; i++) {
             if ("fill_form".equals(args[i])) {
                 config.formInputStream = System.in;
                 i++;
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after fill_form operation.");
+                }
+	    } else if ("fill_form_fdf".equals(args[i])) {
+                config.formInputStream = System.in;
+		config.isFdf = true;
+                i++;
+                if (!"-".equals(args[i])) {
+                    throw new RuntimeException("Missing \"-\" after fill_form_fdf operation.");
                 }
             } else if ("output".equals(args[i])) {
                 i++;
@@ -85,7 +94,11 @@ public class Main
         PdfReader reader = new PdfReader(config.pdfInputStream);
         PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
         if (config.formInputStream != null) {
-            stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
+	    if (config.isFdf) {
+		stamper.getAcroFields().setFields(new FdfReader(config.formInputStream));
+	    } else {
+		stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
+	    }
         }
         stamper.setFormFlattening(config.flatten);
         stamper.close();
