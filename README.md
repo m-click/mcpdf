@@ -36,11 +36,11 @@ Fill in form data and flatten the document to prevent further editing:
 
     java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
 
-Same as above but with fdf DATA rather than xfdf
+Or - with fdf format data:
 
-    java -jar mcpdf.jar FORM.pdf fill_form_fdf - output - flatten < DATA.xfdf > RESULT.pdf
+    java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.fdf > RESULT.pdf
 
-Note the fill_form_fdf vs fill_form; the new, former specifies "fdf" format data.
+Note fill_form checks the header of the x/fdf file to determine whether to treat it as xfdf or fdf.
 
 ## Advanced Topics
 
