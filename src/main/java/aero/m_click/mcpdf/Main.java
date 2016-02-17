@@ -24,8 +24,17 @@
 
 package aero.m_click.mcpdf;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.FdfReader;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.XfdfReader;
@@ -41,7 +50,11 @@ public class Main
     public static void main(String[] args)
     {
         try {
-            execute(parseArgs(args));
+        	if (isWatermark(args)) {
+        		watermark(parseArgs(args));
+        	} else {
+        		execute(parseArgs(args));
+        	}
         } catch (Exception e) {
             System.err.println(e);
             System.err.println("See README for more information.");
@@ -60,10 +73,16 @@ public class Main
         config.pdfOutputStream = System.out;
         config.formInputStream = null;
         config.flatten = false;
+        config.watermark = false;
+        config.text = "DRAFT";
+        config.font_color = BaseColor.RED;
+        config.font_rotation = 45;
+        config.font_size = 24;
         config.isFdf = false;
         byte[] fdfHeader = "%FDF".getBytes();
         for (int i = 1; i < args.length; i++) {
-            if ("fill_form".equals(args[i])) {
+        	if ("fill_form".equals(args[i]) || 
+        			"watermark".equals(args[i])) {
                 config.formInputStream = new BufferedInputStream(System.in);
                 config.formInputStream.mark(4);
                 try {
@@ -73,7 +92,7 @@ public class Main
                         config.isFdf = true;
                     }
                     config.formInputStream.reset();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.err.println(e);
                     System.err.println("Problem reading standard input.");
                 }
@@ -81,14 +100,41 @@ public class Main
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after fill_form operation.");
                 }
-            } else if ("output".equals(args[i])) {
+            } else if ("text".equals(args[i])) {
+            	i++;
+            	config.text = args[i].toUpperCase();
+            } else if ("fontsize".equals(args[i])) {
+            	i++;
+            	try {
+            		config.font_size = Integer.parseInt(args[i]);
+            	} catch (NumberFormatException n) {
+            		throw new RuntimeException("Invalid font size, must be an integer.");
+            	}
+            } else if ("fontcolor".equals(args[i])) {
+            	i++;
+            	int[] rgb_int = rgb(args[i]);
+            	if (rgb_int == null) {
+            		throw new RuntimeException ("Invalid RGB. RGB must be in the form "
+            				+ "red,green,blue with no spaces and commas in between.");
+            	}
+            	config.font_color = new BaseColor(rgb_int[0], rgb_int[1], rgb_int[2]);
+            } else if ("fontrotation".equals(args[i])) {
+            	i++;
+            	try {
+            		config.font_rotation = Integer.parseInt(args[i]);
+            	} catch(NumberFormatException n) {
+            		throw new RuntimeException("Invalid font rotation, must be an integer.");
+            	}
+            }
+        	else if ("output".equals(args[i])) {
                 i++;
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after output operation.");
                 }
-            } else if ("flatten".equals(args[i])) {
+            }  else if ("flatten".equals(args[i])) {
                 config.flatten = true;
-            } else {
+            } 
+            else {
                 throw new RuntimeException("Unknown operation: " + args[i]);
             }
         }
@@ -106,8 +152,61 @@ public class Main
             } else {
                 stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
             }
+            
         }
         stamper.setFormFlattening(config.flatten);
         stamper.close();
+        reader.close();
+    }
+    
+    public static void watermark(Config config) 
+    	throws IOException, DocumentException {
+    		PdfReader reader = new PdfReader(config.pdfInputStream);
+    		PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
+    		int pages = reader.getNumberOfPages();
+    		Font f = new Font(FontFamily.HELVETICA, config.font_size);
+    		f.setColor(config.font_color);
+    		f.setStyle(Font.BOLD);
+    		Phrase p = new Phrase(config.text, f);
+    		PdfGState gsl = new PdfGState();
+    		gsl.setFillOpacity(0.3f);
+    		PdfContentByte over;
+    		Rectangle pagesize;
+    		float x, y;
+    		for (int i = 1; i <= pages; i++) {
+    			pagesize = reader.getPageSizeWithRotation(i);
+    			x = (pagesize.getLeft() + pagesize.getRight()) / 2;
+    			y = (pagesize.getTop() + pagesize.getBottom()) / 2;
+    			over = stamper.getOverContent(i);
+    			over.saveState();
+    			over.setGState(gsl);
+    			ColumnText.showTextAligned(over, Element.ALIGN_CENTER, 
+    					p, x, y, config.font_rotation);
+    			over.restoreState();
+    		}
+    		stamper.close();
+    		reader.close();
+    	}
+    
+    public static boolean isWatermark(String[] args) {
+    	for (int i = 1;i < args.length; i++) {
+    		if ("watermark".equals(args[i])) {
+    			return true;
+   			}
+   		}
+   		return false;
+   	}
+    
+    public static int[] rgb(String rgb) {
+    	String[] rgb_split = rgb.split(",");
+    	if (rgb_split.length == 0 || rgb_split.length != 3) {
+    		return null;
+    	}
+    	int[] rgb_int = new int[3];
+    	for (int i = 0; i < rgb_split.length; i++) {
+    		rgb_int[i] = Integer.parseInt(rgb_split[i]);
+    	}
+    	return rgb_int;
     }
 }
+
