@@ -39,8 +39,8 @@ public class MainTest {
 	public void testWatermark() {
 		try {
 			String[] args = {"/Users/mserrano/Desktop/sample.pdf", 
-				"watermark", "-", 
-				"text", "THIS IS A \r\nDRAFT!", 
+				"watermark", 
+				"text", "THIS IS A DRAFT!", 
 				"fontsize", "48",
 				"fontcolor", "0,191,255",
 				"fontrotation", "90",

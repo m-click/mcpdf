@@ -81,8 +81,10 @@ public class Main
         config.isFdf = false;
         byte[] fdfHeader = "%FDF".getBytes();
         for (int i = 1; i < args.length; i++) {
-        	if ("fill_form".equals(args[i]) || 
-        			"watermark".equals(args[i])) {
+        	if ("watermark".equals(args[i])) {
+        		i++;
+        	}
+        	if ("fill_form".equals(args[i])) {
                 config.formInputStream = new BufferedInputStream(System.in);
                 config.formInputStream.mark(4);
                 try {
