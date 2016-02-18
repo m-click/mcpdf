@@ -36,6 +36,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.BufferedInputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 public class Main
@@ -44,9 +45,9 @@ public class Main
     {
         try {
         	if (inArgs(args, "stamp")) {
-        		stamp(parseArgs(args));
+        		stamp(parseArgsStampBackground(args));
         	} else if (inArgs(args, "background")) {
-        		background(parseArgs(args));
+        		background(parseArgsStampBackground(args));
         	} else {
         		execute(parseArgs(args));
         	}
@@ -57,6 +58,28 @@ public class Main
         }
     }
 
+    public static Config parseArgsStampBackground(String[] args)
+    	throws FileNotFoundException {
+    	if (args.length == 0) {
+    		throw new RuntimeException("Missing arguments.");
+    	}
+    	Config config = new Config();
+    	config.pdfInputStream = new FileInputStream(args[0]);
+    	for (int i = 1; i < args.length; i++) {
+    		if ("stamp".equals(args[i]) ||
+    				"background".equals(args[i])) {
+    			i++;
+    			config.pdf_sig = args[i];
+    		} else if ("output".equals(args[i])) {
+                i++;
+    			config.pdfOutputStream = new PrintStream(args[i]);
+            } else {
+                throw new RuntimeException("Unknown operation: " + args[i]);	
+            }
+    	}
+    	return config;
+    }
+    
     public static Config parseArgs(String[] args)
             throws FileNotFoundException
     {
@@ -67,16 +90,11 @@ public class Main
         config.pdfInputStream = new FileInputStream(args[0]);
         config.pdfOutputStream = System.out;
         config.formInputStream = null;
-        config.pdf_sig = "";
         config.flatten = false;
         config.isFdf = false;
         byte[] fdfHeader = "%FDF".getBytes();
         for (int i = 1; i < args.length; i++) {
-        	if ("stamp".equals(args[i]) || 
-        			"background".equals(args[i])) {
-        		i++;
-        		config.pdf_sig = args[i];
-        	} else if ("fill_form".equals(args[i])) {
+        	if ("fill_form".equals(args[i])) {
                 config.formInputStream = new BufferedInputStream(System.in);
                 config.formInputStream.mark(4);
                 try {

@@ -53,7 +53,7 @@ public class MainTest {
 		try {
 			String[] args = {"/Users/mserrano/Desktop/sample.pdf", 
 				"stamp", "/Users/mserrano/Desktop/draft.pdf", 
-				"output", "-"};
+				"output", "/Users/mserrano/Desktop/result.pdf"};
 			Main.main(args);
 		} catch (Exception e) {
 			System.err.println(e);

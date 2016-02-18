@@ -23,8 +23,6 @@ package aero.m_click.mcpdf;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.itextpdf.text.BaseColor;
-
 public class Config
 {
     public InputStream pdfInputStream;
