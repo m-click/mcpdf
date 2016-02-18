@@ -36,14 +36,23 @@ public class MainTest {
 	}
 	
 	@Test
-	public void testWatermark() {
+	public void testBackground() {
 		try {
 			String[] args = {"/Users/mserrano/Desktop/sample.pdf", 
-				"watermark", 
-				"text", "THIS IS A DRAFT!", 
-				"fontsize", "48",
-				"fontcolor", "0,191,255",
-				"fontrotation", "90",
+				"background", "/Users/mserrano/Desktop/draft.pdf", 
+				"output", "-"};
+			Main.main(args);
+		} catch (Exception e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testStamp() {
+		try {
+			String[] args = {"/Users/mserrano/Desktop/sample.pdf", 
+				"stamp", "/Users/mserrano/Desktop/draft.pdf", 
 				"output", "-"};
 			Main.main(args);
 		} catch (Exception e) {

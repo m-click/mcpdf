@@ -30,11 +30,7 @@ public class Config
     public InputStream pdfInputStream;
     public OutputStream pdfOutputStream;
     public InputStream formInputStream;
+    public String pdf_sig;
     public boolean flatten;
     public boolean isFdf;
-    public boolean watermark;
-    public String text;
-    public int font_size;
-    public BaseColor font_color;
-    public int font_rotation;
 }
