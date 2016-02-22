@@ -25,21 +25,32 @@
 package aero.m_click.mcpdf;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.FdfReader;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.XfdfReader;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.BufferedInputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
 
 public class Main
 {
     public static void main(String[] args)
     {
         try {
-            execute(parseArgs(args));
+        	if (inArgs(args, "stamp")) {
+        		stamp(parseArgsStampBackground(args));
+        	} else if (inArgs(args, "background")) {
+        		background(parseArgsStampBackground(args));
+        	} else {
+        		execute(parseArgs(args));
+        	}
         } catch (Exception e) {
             System.err.println(e);
             System.err.println("See README for more information.");
@@ -47,8 +58,30 @@ public class Main
         }
     }
 
+    public static Config parseArgsStampBackground(String[] args)
+    	throws FileNotFoundException {
+    	if (args.length == 0) {
+    		throw new RuntimeException("Missing arguments.");
+    	}
+    	Config config = new Config();
+    	config.pdfInputStream = new FileInputStream(args[0]);
+    	for (int i = 1; i < args.length; i++) {
+    		if ("stamp".equals(args[i]) ||
+    				"background".equals(args[i])) {
+    			i++;
+    			config.pdf_sig = args[i];
+    		} else if ("output".equals(args[i])) {
+                i++;
+    			config.pdfOutputStream = new PrintStream(args[i]);
+            } else {
+                throw new RuntimeException("Unknown operation: " + args[i]);	
+            }
+    	}
+    	return config;
+    }
+    
     public static Config parseArgs(String[] args)
-        throws FileNotFoundException
+            throws FileNotFoundException
     {
         if (args.length == 0) {
             throw new RuntimeException("Missing arguments.");
@@ -58,9 +91,23 @@ public class Main
         config.pdfOutputStream = System.out;
         config.formInputStream = null;
         config.flatten = false;
+        config.isFdf = false;
+        byte[] fdfHeader = "%FDF".getBytes();
         for (int i = 1; i < args.length; i++) {
-            if ("fill_form".equals(args[i])) {
-                config.formInputStream = System.in;
+        	if ("fill_form".equals(args[i])) {
+                config.formInputStream = new BufferedInputStream(System.in);
+                config.formInputStream.mark(4);
+                try {
+                    byte[] header = new byte[4];
+                    config.formInputStream.read(header, 0, 4);
+                    if (Arrays.equals(header, fdfHeader)) {
+                        config.isFdf = true;
+                    }
+                    config.formInputStream.reset();
+                } catch (Exception e) {
+                    System.err.println(e);
+                    System.err.println("Problem reading standard input.");
+                }
                 i++;
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after fill_form operation.");
@@ -70,9 +117,10 @@ public class Main
                 if (!"-".equals(args[i])) {
                     throw new RuntimeException("Missing \"-\" after output operation.");
                 }
-            } else if ("flatten".equals(args[i])) {
+            }  else if ("flatten".equals(args[i])) {
                 config.flatten = true;
-            } else {
+            } 
+            else {
                 throw new RuntimeException("Unknown operation: " + args[i]);
             }
         }
@@ -80,14 +128,61 @@ public class Main
     }
 
     public static void execute(Config config)
-        throws IOException, DocumentException
+            throws IOException, DocumentException
     {
         PdfReader reader = new PdfReader(config.pdfInputStream);
         PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
         if (config.formInputStream != null) {
-            stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
+            if (config.isFdf) {
+                stamper.getAcroFields().setFields(new FdfReader(config.formInputStream));
+            } else {
+                stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
+            }
+            
         }
         stamper.setFormFlattening(config.flatten);
         stamper.close();
     }
+    
+    public static void stamp(Config config) 
+    	throws IOException, DocumentException {
+    		PdfReader reader = new PdfReader(config.pdfInputStream);
+    		PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
+    		int num_pages = reader.getNumberOfPages();
+    		PdfReader r = new PdfReader(config.pdf_sig);
+    		PdfImportedPage page = stamper.getImportedPage(r, 1);
+    		for (int i = 1; i <= num_pages; i++) {
+        		PdfContentByte canvas = stamper.getOverContent(i);
+        		canvas.addTemplate(page, 0, 0);
+    		}
+    		stamper.getWriter().freeReader(r);
+    		r.close();
+    		stamper.close();
+    	}
+    
+    public static void background(Config config) 
+        	throws IOException, DocumentException {
+        		PdfReader reader = new PdfReader(config.pdfInputStream);
+        		PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
+        		int num_pages = reader.getNumberOfPages();
+        		PdfReader r = new PdfReader(config.pdf_sig);
+        		PdfImportedPage page = stamper.getImportedPage(r, 1);
+        		for (int i = 1; i <= num_pages; i++) {
+            		PdfContentByte canvas = stamper.getUnderContent(i);
+            		canvas.addTemplate(page, 0, 0);
+        		}
+        		stamper.getWriter().freeReader(r);
+        		r.close();
+        		stamper.close();
+        	}
+        
+    public static boolean inArgs(String[] args, String arg) {
+    	for (int i = 1;i < args.length; i++) {
+    		if (arg.equals(args[i])) {
+    			return true;
+   			}
+   		}
+   		return false;
+   	}
 }
+

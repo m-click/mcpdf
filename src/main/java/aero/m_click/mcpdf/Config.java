@@ -28,5 +28,7 @@ public class Config
     public InputStream pdfInputStream;
     public OutputStream pdfOutputStream;
     public InputStream formInputStream;
+    public String pdf_sig;
     public boolean flatten;
+    public boolean isFdf;
 }
