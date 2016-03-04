@@ -24,15 +24,16 @@
 
 package aero.m_click.mcpdf;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.XfdfReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class Main
 {
@@ -57,9 +58,17 @@ public class Main
         config.pdfInputStream = new FileInputStream(args[0]);
         config.pdfOutputStream = System.out;
         config.formInputStream = null;
+        config.stampFilename = "";
+        config.backgroundFilename = "";
         config.flatten = false;
         for (int i = 1; i < args.length; i++) {
-            if ("fill_form".equals(args[i])) {
+            if ("stamp".equals(args[i])) {
+                i++;
+                config.stampFilename = args[i];
+            } else if ("background".equals(args[i])) {
+                i++;
+                config.backgroundFilename = args[i];
+            } else if ("fill_form".equals(args[i])) {
                 config.formInputStream = System.in;
                 i++;
                 if (!"-".equals(args[i])) {
@@ -84,10 +93,30 @@ public class Main
     {
         PdfReader reader = new PdfReader(config.pdfInputStream);
         PdfStamper stamper = new PdfStamper(reader, config.pdfOutputStream, '\0');
+        if (!config.stampFilename.isEmpty()) {
+            stampBackground(reader, stamper, config.stampFilename, true);
+        }
+        if (!config.backgroundFilename.isEmpty()) {
+            stampBackground(reader, stamper, config.backgroundFilename, false);
+        }
         if (config.formInputStream != null) {
             stamper.getAcroFields().setFields(new XfdfReader(config.formInputStream));
         }
         stamper.setFormFlattening(config.flatten);
         stamper.close();
     }
+
+    public static void stampBackground(PdfReader reader, PdfStamper stamper, String signature, boolean isStamp)
+        throws IOException, DocumentException
+    {
+        int num_pages = reader.getNumberOfPages();
+        PdfReader r = new PdfReader(signature);
+        PdfImportedPage page = stamper.getImportedPage(r, 1);
+        for (int i = 1; i <= num_pages; i++) {
+            PdfContentByte canvas = isStamp ? stamper.getOverContent(i) : stamper.getUnderContent(i);
+            canvas.addTemplate(page, 0, 0);
+        }
+        stamper.getWriter().freeReader(r);
+    }
 }
+
