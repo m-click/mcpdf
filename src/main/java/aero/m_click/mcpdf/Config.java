@@ -28,5 +28,7 @@ public class Config
     public InputStream pdfInputStream;
     public OutputStream pdfOutputStream;
     public InputStream formInputStream;
+    public String stampFilename;
+    public String backgroundFilename;
     public boolean flatten;
 }
