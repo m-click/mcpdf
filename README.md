@@ -36,6 +36,16 @@ Fill in form data and flatten the document to prevent further editing:
 
     java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
 
+### Add a stamp or background to a PDF file.
+
+Use `draft.pdf` as a background for `initial.pdf` and output to `RESULT.pdf`:
+
+    java -jar mcpdf.jar draft.pdf background initial.pdf output - > RESULT.pdf
+
+Similarly, you can use the stamp functionality to add `draft.pdf` as a stamp, or foreground, for `initial.pdf` and output into `RESULT.pdf`. This works just like background, except that it places `draft.pdf` in front of `initial.pdf` instead of behind it:
+
+    java -jar mcpdf.jar draft.pdf stamp initial.pdf output - > RESULT.pdf
+
 ## Advanced Topics
 
 ### Combine with Another Library Version
