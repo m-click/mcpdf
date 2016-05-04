@@ -99,8 +99,8 @@ Create `~/.m2/settings.xml`:
 Prepare documentation:
 
     VERSION=`sed -n 's/^  <version>\([^-]*\).*/\1/p' pom.xml`
-    sed -i "s,mcpdf\([-/]\)[0-9.]*[0-9],mcpdf\1$VERSION,g" README.org
-    git commit -m "Prepare documentation for release mcpdf-$VERSION" README.org
+    sed -i "s,mcpdf\([-/]\)[0-9.]*[0-9],mcpdf\1$VERSION,g" README.md
+    git commit -m "Prepare documentation for release mcpdf-$VERSION" README.md
 
 Create a new release and upload it to the OSSRH staging area:
 
