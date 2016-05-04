@@ -42,7 +42,7 @@ Use `BACKGROUND.pdf` as a background for `INPUT.pdf` and output to `OUTPUT.pdf`:
 
     java -jar mcpdf.jar BACKGROUND.pdf background INPUT.pdf output - > OUTPUT.pdf
 
-Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp (i.e. foreground) for `INPUT.pdf` and output into `OUTPUT.pdf`. This works just like background, except that it places `DRAFT.pdf` in front of `INPUT.pdf` instead of behind it:
+Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp (i.e. foreground) for `INPUT.pdf` and output into `OUTPUT.pdf`. This works just like background, except that it places `STAMP.pdf` in front of `INPUT.pdf` instead of behind it:
 
     java -jar mcpdf.jar STAMP.pdf stamp INPUT.pdf output - > OUTPUT.pdf
 
