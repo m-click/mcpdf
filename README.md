@@ -28,23 +28,23 @@ Note that not all PDFtk operations are implemented at the moment. Just the follo
 
 ### Fill in form data
 
-Fill in form data from `DATA.xfdf` into `FORM.pdf` and write the result to `RESULT.pdf`:
+Fill in form data from `DATA.xfdf` into `FORM.pdf` and write the result to `OUTPUT.pdf`:
 
-    java -jar mcpdf.jar FORM.pdf fill_form - output - < DATA.xfdf > RESULT.pdf
+    java -jar mcpdf.jar FORM.pdf fill_form - output - < DATA.xfdf > OUTPUT.pdf
 
 Fill in form data and flatten the document to prevent further editing:
 
-    java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > RESULT.pdf
+    java -jar mcpdf.jar FORM.pdf fill_form - output - flatten < DATA.xfdf > OUTPUT.pdf
 
 ### Add stamp and/or background
 
-Use `BACKGROUND.pdf` as a background for `INPUT.pdf` and output to `RESULT.pdf`:
+Use `BACKGROUND.pdf` as a background for `INPUT.pdf` and output to `OUTPUT.pdf`:
 
-    java -jar mcpdf.jar BACKGROUND.pdf background INPUT.pdf output - > RESULT.pdf
+    java -jar mcpdf.jar BACKGROUND.pdf background INPUT.pdf output - > OUTPUT.pdf
 
-Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp (i.e. foreground) for `INPUT.pdf` and output into `RESULT.pdf`. This works just like background, except that it places `DRAFT.pdf` in front of `INPUT.pdf` instead of behind it:
+Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp (i.e. foreground) for `INPUT.pdf` and output into `OUTPUT.pdf`. This works just like background, except that it places `DRAFT.pdf` in front of `INPUT.pdf` instead of behind it:
 
-    java -jar mcpdf.jar STAMP.pdf stamp INPUT.pdf output - > RESULT.pdf
+    java -jar mcpdf.jar STAMP.pdf stamp INPUT.pdf output - > OUTPUT.pdf
 
 ## Advanced Topics
 
