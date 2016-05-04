@@ -22,7 +22,7 @@ Test it via:
 
 The goal of Mcpdf is to become a drop-in replacement for PDFtk, so you could take any working [PDFtk command](http://www.pdflabs.com/docs/pdftk-man-page/) and replace `pdftk` with `java -jar mcpdf.jar`. That's all there is to it.
 
-Note that not all PDFtk operations are implemented at the moment. Just the following subset is supported. 
+Note that not all PDFtk operations are implemented at the moment. Just the following subset is supported.
 
 [Please create an issue tracker entry](https://github.com/m-click/mcpdf/issues) if you see something missing that you need. Don't forget to provide the exact PDFtk command that you would like to see in Mcpdf.
 
