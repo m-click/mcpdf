@@ -38,13 +38,13 @@ Fill in form data and flatten the document to prevent further editing:
 
 ### Add a stamp or background to a PDF file.
 
-Use `draft.pdf` as a background for `initial.pdf` and output to `RESULT.pdf`:
+Use `BACKGROUND.pdf` as a background for `INPUT.pdf` and output to `RESULT.pdf`:
 
-    java -jar mcpdf.jar draft.pdf background initial.pdf output - > RESULT.pdf
+    java -jar mcpdf.jar BACKGROUND.pdf background INPUT.pdf output - > RESULT.pdf
 
-Similarly, you can use the stamp functionality to add `draft.pdf` as a stamp, or foreground, for `initial.pdf` and output into `RESULT.pdf`. This works just like background, except that it places `draft.pdf` in front of `initial.pdf` instead of behind it:
+Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp, or foreground, for `INPUT.pdf` and output into `RESULT.pdf`. This works just like background, except that it places `DRAFT.pdf` in front of `INPUT.pdf` instead of behind it:
 
-    java -jar mcpdf.jar draft.pdf stamp initial.pdf output - > RESULT.pdf
+    java -jar mcpdf.jar STAMP.pdf stamp INPUT.pdf output - > RESULT.pdf
 
 ## Advanced Topics
 
