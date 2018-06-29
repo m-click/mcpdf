@@ -106,7 +106,7 @@ Create a new release and upload it to the OSSRH staging area:
 
     mvn release:clean release:prepare release:perform
 
-[Follow the OSSRH release instructions](http://central.sonatype.org/pages/releasing-the-deployment.html][Follow the OSSRH release instructions), that is:
+[Follow the OSSRH release instructions](http://central.sonatype.org/pages/releasing-the-deployment.html), that is:
 
 1. Open https://oss.sonatype.org/
 2. Login
