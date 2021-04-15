@@ -1,8 +1,10 @@
 # Mcpdf
 
-Mcpdf fixes PDFtk's unicode issues, so you can write Łódź into your forms. Mcpdf aims to become a drop-in replacement for PDFtk.
+Mcpdf is an alternative to PDFtk with fixed unicode issues, so you can write Łódź into your forms.
 
-It is essentially a command line interface to the [iText PDF library](http://itextpdf.com/product/itext) with a PDFtk compatible syntax.
+It implements a small subset of PDFtk for which it implements compatible command line interface, so it can be used as a drop-in replacement for this subset of commands.
+
+Internally it uses the [iText PDF library](http://itextpdf.com/product/itext).
 
 ## Getting Started
 
@@ -20,11 +22,9 @@ Test it via:
 
 ## Usage
 
-The goal of Mcpdf is to become a drop-in replacement for PDFtk, so you could take any working [PDFtk command](http://www.pdflabs.com/docs/pdftk-man-page/) and replace `pdftk` with `java -jar mcpdf.jar`. That's all there is to it.
+For the implemented subset of commands (see below), Mcpdf can be used as a drop-in replacement for PDFtk, taking a [PDFtk command](http://www.pdflabs.com/docs/pdftk-man-page/) and replace `pdftk` with `java -jar mcpdf.jar`.
 
-Note that not all PDFtk operations are implemented at the moment. Just the following subset is supported.
-
-[Please create an issue tracker entry](https://github.com/m-click/mcpdf/issues) if you see something missing that you need. Don't forget to provide the exact PDFtk command that you would like to see in Mcpdf.
+[Please create an issue tracker entry](https://github.com/m-click/mcpdf/issues) if you would like to add more commands.
 
 ### Fill in form data
 
