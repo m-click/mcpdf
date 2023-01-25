@@ -106,6 +106,10 @@ Create a new release and upload it to the OSSRH staging area:
 
     mvn release:clean release:prepare release:perform
 
+In case this fails with an error message stating that javadoc cannot be found, try setting `JAVA_HOME`:
+
+    export JAVA_HOME=/usr && mvn release:clean release:prepare release:perform
+
 [Follow the OSSRH release instructions](http://central.sonatype.org/pages/releasing-the-deployment.html), that is:
 
 1. Open https://oss.sonatype.org/
