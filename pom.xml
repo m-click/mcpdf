@@ -10,7 +10,7 @@
   <licenses>
     <license>
       <name>GNU Affero General Public License v3</name>
-      <url>http://www.fsf.org/licensing/licenses/agpl-3.0.html</url>
+      <url>https://www.fsf.org/licensing/licenses/agpl-3.0.html</url>
     </license>
   </licenses>
   <scm>
@@ -20,10 +20,10 @@
   </scm>
   <developers>
     <developer>
-      <name>Volker Grabsch</name>
-      <email>grabsch@m-click.aero</email>
+      <name>Volker Diels-Grabsch</name>
+      <email>volker.diels-grabsch@m-click.aero</email>
       <organization>m-click</organization>
-      <organizationUrl>http://m-click.aero</organizationUrl>
+      <organizationUrl>https://m-click.aero</organizationUrl>
     </developer>
   </developers>
   <parent>
@@ -80,12 +80,12 @@
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk15on</artifactId>
-      <version>1.52</version>
+      <version>1.70</version>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.67</version>
+      <version>1.70</version>
     </dependency>
     <dependency>
       <groupId>com.itextpdf</groupId>
