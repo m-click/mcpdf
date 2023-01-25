@@ -104,22 +104,26 @@ Prepare documentation:
 
 Create a new release and upload it to the OSSRH staging area:
 
-    mvn release:clean release:prepare release:perform
+    mvn release:clean release:prepare release:perform && git push
 
-In case this fails with an error message stating that javadoc cannot be found, try setting `JAVA_HOME`:
+In case this fails with an error message stating that `javadoc` cannot be found, try setting `JAVA_HOME`:
 
-    export JAVA_HOME=/usr && mvn release:clean release:prepare release:perform
+    export JAVA_HOME=/usr && mvn release:clean release:prepare release:perform && git push
 
 [Follow the OSSRH release instructions](http://central.sonatype.org/pages/releasing-the-deployment.html), that is:
 
 1. Open https://oss.sonatype.org/
 2. Login
 3. Select `Staging Repositories`
+6. Click `Refresh` a few times, until a row appears in the list
 4. Select topmost item
 5. Click `Close` and `Confirm`
-6. Click `Refresh` a few times
+6. Click `Refresh` a few times, until the `Release` button becomes available
 7. Click `Release` and `Confirm`
-8. [Watch it appear at the Central Repository](https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22)
+8. Watch it appear at the Central Repository:
+   * https://repo1.maven.org/maven2/aero/m-click/mcpdf/
+   * https://search.maven.org/artifact/aero.m-click/mcpdf
+   * https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22
 
 Push to GitHub:
 
