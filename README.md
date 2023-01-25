@@ -124,7 +124,3 @@ In case this fails with an error message stating that `javadoc` cannot be found,
    * https://repo1.maven.org/maven2/aero/m-click/mcpdf/
    * https://search.maven.org/artifact/aero.m-click/mcpdf
    * https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22
-
-Push to GitHub:
-
-    git push
