@@ -110,11 +110,17 @@ In case this fails with an error message stating that `javadoc` cannot be found,
 
     export JAVA_HOME=/usr && mvn release:clean release:prepare release:perform && git push
 
-Watch it appear at the Central Repository:
+If the automatic deployment failed:
 
   * Open https://oss.sonatype.org/
     * Select `Staging Repositories`
     * Click `Refresh` a few times as needed
+    * If it failed to be closed automatically, click `Close`, then `Confirm`
+    * Click `Refresh` a few times as needed
+    * If it failed to be released automatically, click `Release`, then `Confirm`
+
+Watch it appear at the Central Repository:
+
   * https://repo1.maven.org/maven2/aero/m-click/mcpdf/
   * https://search.maven.org/artifact/aero.m-click/mcpdf
   * https://search.maven.org/#search|gav|1|g%3A%22aero.m-click%22%20AND%20a%3A%22mcpdf%22
