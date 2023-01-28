@@ -10,11 +10,11 @@ Internally it uses the [iText PDF library](http://itextpdf.com/product/itext).
 
 Make sure you have installed a Java Runtime Environment such as [OpenJDK](http://openjdk.java.net/).
 
-[Download](https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.7/mcpdf-0.2.7-jar-with-dependencies.jar) the latest standalone version of Mcpdf (jar-with-dependencies).
+[Download](https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.8/mcpdf-0.2.8-jar-with-dependencies.jar) the latest standalone version of Mcpdf (jar-with-dependencies).
 
 For the sake of brevity, we will refer to this file as `mcpdf.jar`. So you should either rename the file or create a symlink:
 
-    ln -s mcpdf-0.2.7-jar-with-dependencies.jar mcpdf.jar
+    ln -s mcpdf-0.2.8-jar-with-dependencies.jar mcpdf.jar
 
 Test it via:
 
@@ -50,13 +50,13 @@ Similarly, you can use the stamp functionality to add `STAMP.pdf` as a stamp (i.
 
 ### Combine with Another Library Version
 
-[Download](https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.7/mcpdf-0.2.7.jar) the plain JAR file (`mcpdf-0.2.7.jar`) instead of the jar-with-dependencies.
+[Download](https://oss.sonatype.org/content/repositories/releases/aero/m-click/mcpdf/0.2.8/mcpdf-0.2.8.jar) the plain JAR file (`mcpdf-0.2.8.jar`) instead of the jar-with-dependencies.
 
 [Download](https://search.maven.org/#search|gav|1|g%3A%22com.itextpdf%22%20AND%20a%3A%22itextpdf%22) the version of the iText PDF library you want to use (`itextpdf-X.Y.Z.jar`).
 
 Run both in combination:
 
-    java -cp itextpdf-X.Y.Z.jar:mcpdf-0.2.7.jar aero.m_click.mcpdf.Main
+    java -cp itextpdf-X.Y.Z.jar:mcpdf-0.2.8.jar aero.m_click.mcpdf.Main
 
 ### Build from Source
 
